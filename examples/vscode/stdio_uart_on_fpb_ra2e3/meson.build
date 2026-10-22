@@ -29,9 +29,9 @@ inc = include_directories(
 
   'ra_gen',
   'src',
-
+  'src/stdio_uart',
   '.',  # Debug headers etc
-  'Debug/'
+  'build/cmake.arm.debug.R7FA2E307'
 )
 
 # -------------------------------
@@ -79,7 +79,7 @@ link_args = [
   '-T', join_paths(script_dir, 'fsp.lld'),
 
   '-Wl,-L' + script_dir,
-  '-Wl,-L' + join_paths(meson.current_source_dir(), 'Debug'),
+  '-Wl,-L' + join_paths(meson.current_source_dir(),  'build', 'cmake.arm.debug.R7FA2E307'),
 
   '-Wl,-Map=' + meson.project_name() + '.map',
 ]
@@ -107,21 +107,21 @@ test_exe = executable(
   link_args: link_args,
 )
 
-  if get_option('easydev') == true
-  run_target(
-      'build-e2studio-project',
-      command : [
-          python,
-          join_paths(
-              meson.project_source_root(),
-              'scripts',
-              'build_e2studio_project.py'
-          ),
-          mcu,
-          get_option('example'),
-      ]
-  )
-endif
+# if get_option('easydev') == true
+#   run_target(
+#       'build-e2studio-project',
+#       command : [
+#           python,
+#           join_paths(
+#               meson.project_source_root(),
+#               'scripts',
+#               'build_e2studio_project.py'
+#           ),
+#           mcu,
+#           get_option('example'),
+#       ]
+#   )
+# endif
 
 objcopy = find_program('llvm-objcopy')
 

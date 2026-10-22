@@ -89,8 +89,8 @@ static const uart_instance_t g_uart_jlob_vcom_ref =
 
 static rs_stdio_uart_cfg_t const rs_stdio_uart_ref =
 {
- .rxd = IOPORT_PORT_01_PIN_05,
- .txd = IOPORT_PORT_01_PIN_06,
+ .rxd = IOPORT_PORT_01_PIN_10,
+ .txd = IOPORT_PORT_01_PIN_09,
  .uart_instance = g_uart_jlob_vcom_ref,
  .uart_cfg = g_uart_jlob_vcom_ref_cfg,
  .sci_uart_baud_setting = g_uart_jlob_vcom_ref_baud_setting,
@@ -207,8 +207,8 @@ fsp_err_t RS_STDIO_COMMS_CheckApplicationConfiguration(void)
 
     rs_stdio_uart_cfg_t rs_stdio_uart_check =
     {
-         .rxd = IOPORT_PORT_01_PIN_05,
-         .txd = IOPORT_PORT_01_PIN_06,
+         .rxd = IOPORT_PORT_01_PIN_10,
+         .txd = IOPORT_PORT_01_PIN_09,
          .uart_instance = g_uart0,
          .uart_cfg = g_uart0_cfg,
          .sci_uart_baud_setting = g_uart0_baud_setting,

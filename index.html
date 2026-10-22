@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>README-BUFFERED-UART</title>
+  <style>
+
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+white-space: pre-wrap;
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+</head>
+<body>
+<h1 id="uart-console-picolibc--fsp--user-manual">UART Console (Picolibc
++ FSP) – User Manual</h1>
+<h2 id="summary">Summary</h2>
+<p>This module provides a reusable UART-based stdio implementation
+featuring:</p>
+<ul>
+<li>ByteQ buffering</li>
+<li>Interrupt-driven communication</li>
+<li>Automatic initialization</li>
+<li>UART configuration validation</li>
+<li>Multi-board support</li>
+<li>Minimal application integration effort</li>
+</ul>
+<p>The solution is suitable for:</p>
+<ul>
+<li>Debug consoles</li>
+<li>CLI interfaces</li>
+<li>Evaluation boards</li>
+<li>Training material</li>
+<li>Application demonstrations</li>
+</ul>
+<h3 id="what-problem-does-this-sbb-solve">What Problem Does This SBB
+Solve?</h3>
+<p>This SBB demonstrates how to redirect standard C library console I/O
+(stdin, stdout, and stderr) to a Renesas FSP UART peripheral using
+picolibc.</p>
+<p>Typical use cases include:</p>
+<ul>
+<li>Debug console output</li>
+<li>Interactive command-line interfaces (CLI)</li>
+<li>Application logging</li>
+<li>Manufacturing or service interfaces</li>
+<li>Evaluation board demonstrations</li>
+<li>Customer reference designs</li>
+<li>Training and educational examples</li>
+</ul>
+<h3 id="what-does-the-sbb-core-code-do">What Does the SBB Core Code
+Do?</h3>
+<p>The reusable SBB code provides:</p>
+<ul>
+<li>UART-backed implementations of:
+<ul>
+<li>printf()</li>
+<li>fprintf()</li>
+<li>scanf()</li>
+<li>getchar()</li>
+<li>putchar()</li>
+</ul></li>
+<li>Interrupt-driven UART communication</li>
+<li>ByteQ-based transmit and receive buffering</li>
+<li>Automatic one-time initialization</li>
+<li>UART configuration validation</li>
+<li>Board-specific reference configuration validation</li>
+</ul>
+<p>The SBB is intended to be reusable across multiple RA MCU families
+and target boards with minimal modification.</p>
+<hr />
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#uart-console-picolibc--fsp--user-manual">UART Console
+(Picolibc + FSP) – User Manual</a>
+<ul>
+<li><a href="#summary">Summary</a>
+<ul>
+<li><a href="#what-problem-does-this-SBB-solve">What Problem Does This
+SBB Solve?</a></li>
+<li><a href="#what-does-the-SBB-core-code-do">What Does the SBB Core
+Code Do?</a></li>
+</ul></li>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#demo-evaluation">Demo Evaluation</a>
+<ul>
+<li><a href="#demonstrated-behavior">Demonstrated Behavior</a>
+<ul>
+<li><a href="#demonstrated-configuration">Demonstrated
+Configuration</a></li>
+<li><a href="#performance-notes">Performance Notes</a></li>
+</ul></li>
+<li><a href="#demo-code-versus-reusable-SBB-code">Demo Code Versus
+Reusable SBB Code</a></li>
+<li><a href="#reusable-SBB-components">Reusable SBB Components</a></li>
+</ul></li>
+<li><a href="#key-features">Key Features</a></li>
+<li><a href="#dependencies">Dependencies</a>
+<ul>
+<li><a href="#hardware-and-software-dependencies">Hardware and Software
+Dependencies</a>
+<ul>
+<li><a href="#fsp-components">FSP Components</a></li>
+<li><a href="#SBB-components">SBB Components</a></li>
+<li><a href="#runtime-components">Runtime Components</a></li>
+<li><a href="#hardware-resources">Hardware Resources</a></li>
+</ul></li>
+<li><a href="#mandatory-components">Mandatory Components</a></li>
+<li><a href="#compile-time-requirement">Compile-Time
+Requirement</a></li>
+</ul></li>
+<li><a href="#fsp-configuration">FSP Configuration</a>
+<ul>
+<li><a href="#reference-board-assumptions">Reference Board
+Assumptions</a></li>
+<li><a href="#add-uart-instance">Add UART Instance</a></li>
+<li><a href="#configure-uart-parameters">Configure UART
+Parameters</a></li>
+<li><a href="#callback-configuration">Callback Configuration</a>
+<ul>
+<li><a href="#preferred">Preferred</a></li>
+<li><a href="#alternative">Alternative</a></li>
+</ul></li>
+<li><a href="#configure-heap-size">Configure Heap Size</a></li>
+<li><a href="#enable-byteq">Enable ByteQ</a></li>
+<li><a href="#uart-configuration-validation">UART Configuration
+Validation</a></li>
+<li><a href="#dmadtc-restrictions">DMA/DTC Restrictions</a></li>
+</ul></li>
+<li><a href="#recommended-starting-points">Recommended Starting
+Points</a>
+<ul>
+<li><a href="#public-apis-to-review-first">Public APIs To Review
+First</a>
+<ul>
+<li><a href="#validate-configuration">Validate Configuration</a></li>
+<li><a href="#initialize-through-first-use">Initialize Through First
+Use</a></li>
+<li><a href="#read-console-input">Read Console Input</a></li>
+<li><a href="#write-console-output">Write Console Output</a></li>
+<li><a href="#flush-output">Flush Output</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#integration-steps">Integration Steps</a>
+<ul>
+<li><a href="#step-1-add-uart-sources">Step 1: Add UART Sources</a></li>
+<li><a href="#step-2-add-byteq-sources">Step 2: Add ByteQ
+Sources</a></li>
+<li><a href="#step-3-configure-uart-in-fsp">Step 3: Configure UART in
+FSP</a></li>
+<li><a href="#step-4-configure-heap-size">Step 4: Configure Heap
+Size</a></li>
+<li><a href="#step-5-configure-uart-routing">Step 5: Configure UART
+Routing</a></li>
+<li><a href="#step-6-build-with-picolibc">Step 6: Build with
+Picolibc</a></li>
+<li><a href="#step-7-validate-uart-configuration">Step 7: Validate UART
+Configuration</a></li>
+<li><a href="#step-8-no-explicit-initialization-required">Step 8: No
+Explicit Initialization Required</a></li>
+</ul></li>
+<li><a href="#integration-checklist">Integration Checklist</a></li>
+<li><a href="#uart-configuration-architecture">UART Configuration
+Architecture</a></li>
+<li><a href="#usage">Usage</a>
+<ul>
+<li><a href="#writing-to-console">Writing to Console</a></li>
+<li><a href="#reading-from-console">Reading from Console</a></li>
+<li><a href="#flush-output-1">Flush Output</a></li>
+</ul></li>
+<li><a href="#data-flow-architecture">Data Flow Architecture</a>
+<ul>
+<li><a href="#tx-flow">TX Flow</a></li>
+<li><a href="#rx-flow">RX Flow</a></li>
+</ul></li>
+<li><a href="#callback-behavior">Callback Behavior</a>
+<ul>
+<li><a href="#special-handling">Special Handling</a></li>
+</ul></li>
+<li><a href="#configuration-parameters">Configuration Parameters</a>
+<ul>
+<li><a href="#buffer-sizes">Buffer Sizes</a></li>
+</ul></li>
+<li><a href="#error-handling">Error Handling</a>
+<ul>
+<li><a href="#return-conventions">Return Conventions</a></li>
+<li><a href="#common-failure-conditions">Common Failure
+Conditions</a></li>
+</ul></li>
+<li><a href="#limitations">Limitations</a>
+<ul>
+<li><a href="#blocking-rx">Blocking RX</a></li>
+<li><a href="#heap-usage">Heap Usage</a></li>
+<li><a href="#no-timeout-support">No Timeout Support</a></li>
+<li><a href="#single-uart-instance">Single UART Instance</a></li>
+<li><a href="#supported-boards">Supported Boards</a></li>
+</ul></li>
+<li><a href="#recommended-best-practices">Recommended Best Practices</a>
+<ul>
+<li><a href="#production-systems">Production Systems</a></li>
+<li><a href="#debug-applications">Debug Applications</a></li>
+</ul></li>
+<li><a href="#source-modification-guidance">Source Modification
+Guidance</a>
+<ul>
+<li><a href="#safe-to-modify">Safe To Modify</a></li>
+<li><a href="#modify-with-care">Modify With Care</a></li>
+<li><a href="#generated-files">Generated Files</a></li>
+</ul></li>
+<li><a href="#updating-to-a-newer-SBB-release">Updating To A Newer SBB
+Release</a>
+<ul>
+<li><a href="#recommended-approach">Recommended Approach</a>
+<ul>
+<li><a href="#customize">Customize:</a></li>
+<li><a href="#avoid-modifying">Avoid modifying:</a></li>
+</ul></li>
+<li><a href="#benefits">Benefits</a></li>
+</ul></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="overview">Overview</h2>
+<p>This module provides a <strong>UART-backed stdio interface</strong>
+(<code>stdin</code>, <code>stdout</code>, <code>stderr</code>) for
+Renesas RA MCUs using <strong>picolibc</strong> and the Renesas Flexible
+Software Package (FSP).</p>
+<p>It enables:</p>
+<ul>
+<li><code>printf()</code> → UART TX</li>
+<li><code>fprintf()</code> → UART TX</li>
+<li><code>scanf()</code> → UART RX</li>
+<li><code>getchar()</code> → UART RX</li>
+<li>Buffered, interrupt-driven communication using ByteQ</li>
+<li>Automatic UART initialization</li>
+<li>UART configuration validation</li>
+</ul>
+<hr />
+<h2 id="demo-evaluation">Demo Evaluation</h2>
+<p>A demonstration application
+(<code>syscalls_picolib_stdio_to_uart_demo.c</code>) is included to
+verify correct UART console integration and validate end-to-end
+operation.</p>
+<p>The demo performs the following:</p>
+<ol type="1">
+<li>Initializes the system normally without explicit UART console
+initialization.</li>
+<li>Prints a startup message using <code>printf()</code>.</li>
+<li>Waits for characters to be received from the UART terminal.</li>
+<li>Echoes received characters back to the terminal.</li>
+</ol>
+<p>Example:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">&quot;System Init</span><span class="sc">\r\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(</span><span class="dv">1</span><span class="op">)</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> c <span class="op">=</span> getchar<span class="op">();</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;You typed: </span><span class="sc">%c\r\n</span><span class="st">&quot;</span><span class="op">,</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        c<span class="op">);</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Expected terminal output:</p>
+<pre class="text"><code>System Init</code></pre>
+<p>When the user types:</p>
+<pre class="text"><code>A</code></pre>
+<p>The console should display:</p>
+<pre class="text"><code>You typed: A</code></pre>
+<p>Successful operation demonstrates:</p>
+<ul>
+<li>Automatic UART console initialization</li>
+<li>Correct UART TX functionality</li>
+<li>Correct UART RX functionality</li>
+<li>ByteQ transmit and receive buffering</li>
+<li>Interrupt-driven UART communication</li>
+<li>Proper <code>printf()</code> and <code>getchar()</code> integration
+with picolibc</li>
+<li>Correct UART routing and baud-rate configuration</li>
+</ul>
+<p>This demo is recommended as the first validation step after
+integrating the UART Console SBB into a new project.</p>
+<h3 id="demonstrated-behavior">Demonstrated Behavior</h3>
+<p>The supplied demo application demonstrates:</p>
+<ul>
+<li>Successful UART-backed printf()</li>
+<li>Successful UART-backed getchar()</li>
+<li>Interrupt-driven UART operation</li>
+<li>Automatic initialization</li>
+<li>ByteQ buffering</li>
+<li>UART configuration validation</li>
+</ul>
+<h4 id="demonstrated-configuration">Demonstrated Configuration</h4>
+<p>The reference implementation was validated using:</p>
+<pre><code>115200 baud
+8 data bits
+No parity
+1 stop bit</code></pre>
+<h4 id="performance-notes">Performance Notes</h4>
+<p>The implementation is designed for interactive console workloads.</p>
+<p>Demonstrated characteristics include:</p>
+<ul>
+<li>Buffered transmit operation</li>
+<li>Buffered receive operation</li>
+<li>Interrupt-driven communication</li>
+<li>Reduced application blocking during output generation</li>
+</ul>
+<p>No throughput, latency, CPU utilization, or memory benchmarks are
+currently provided by this SBB.</p>
+<hr />
+<h3 id="demo-code-versus-reusable-sbb-code">Demo Code Versus Reusable
+SBB Code</h3>
+<p>The repository contains both reusable SBB components and
+demonstration/reference application code.</p>
+<h3 id="reusable-sbb-components">Reusable SBB Components</h3>
+<p>These files are intended to be integrated into customer
+applications:</p>
+<pre><code>syscalls_picolib_stdio_to_uart.c
+rs_stdio_uart.c
+rs_stdio_uart.h
+
+configs/
+├── stdio_uart_config_ra0l1.c
+├── stdio_uart_config_ra2e3.c
+├── stdio_uart_config_ra4e2.c
+├── stdio_uart_config_ra6e2.c
+└── stdio_uart_config_ra8e1.c</code></pre>
+<p>These files implement:</p>
+<p>UART stdio redirection UART initialization ByteQ buffering UART
+interrupt processing Configuration validation Demo / Reference
+Application Code</p>
+<p>The following files exist solely to demonstrate SBB usage:</p>
+<pre><code>syscalls_picolib_stdio_to_uart_demo.c</code></pre>
+<p>The demo application:</p>
+<p>Exercises the SBB APIs Demonstrates expected behavior Provides a
+known-good validation example</p>
+<p>The demo application is not intended to be production code.</p>
+<h2 id="key-features">Key Features</h2>
+<ul>
+<li>Fully integrates with picolibc <code>FILE</code> streams</li>
+<li>Buffered UART TX and RX</li>
+<li>Interrupt-driven communication</li>
+<li>ByteQ-backed buffering</li>
+<li>Automatic initialization on first use</li>
+<li>Line-buffered output</li>
+<li>Explicit flush support</li>
+<li>UART configuration validation framework</li>
+<li>Board-specific validated UART reference configurations</li>
+<li>Cross-family support:
+<ul>
+<li>FPB-RA0L1</li>
+<li>FPB-RA2E3</li>
+<li>FPB-RA4E2</li>
+<li>FPB-RA6E2</li>
+<li>FPB-RA8E1</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="dependencies">Dependencies</h2>
+<h3 id="hardware-and-software-dependencies">Hardware and Software
+Dependencies</h3>
+<p>This SBB depends upon the following components:</p>
+<h4 id="fsp-components">FSP Components</h4>
+<ul>
+<li>UART driver</li>
+<li>BSP</li>
+<li>Interrupt manager</li>
+</ul>
+<h4 id="sbb-components">SBB Components</h4>
+<ul>
+<li>ByteQ</li>
+</ul>
+<h4 id="runtime-components">Runtime Components</h4>
+<ul>
+<li>picolibc</li>
+<li>Heap allocation (malloc())</li>
+</ul>
+<h4 id="hardware-resources">Hardware Resources</h4>
+<ul>
+<li>One UART peripheral</li>
+<li>UART TX interrupt</li>
+<li>UART RX interrupt</li>
+<li>UART pins</li>
+<li>Reference clock source suitable for configured baud rate</li>
+</ul>
+<h3 id="mandatory-components">Mandatory Components</h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Toolchain</td>
+<td>LLVM ARM Embedded Toolchain with picolibc</td>
+</tr>
+<tr>
+<td>FSP Modules</td>
+<td>UART driver appropriate for device</td>
+</tr>
+<tr>
+<td>ByteQ</td>
+<td>SBB-queues ByteQ</td>
+</tr>
+<tr>
+<td>BSP</td>
+<td>Supported Renesas RA MCU</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="compile-time-requirement">Compile-Time Requirement</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#if !defined (__PICOLIBC__)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#error &quot;Use this file only with picolibc. Typically packaged with LLVM ARM Embedded Toolchain.&quot;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif</span></span></code></pre></div>
+<hr />
+<h2 id="fsp-configuration">FSP Configuration</h2>
+<h3 id="reference-board-assumptions">Reference Board Assumptions</h3>
+<p>The validation configuration files supplied with this SBB were
+created and tested using Renesas Fast Prototyping Boards (FPBs).</p>
+<p>Reference assumptions include:</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Assumption</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UART Instance</td>
+<td><code>g_uart_jlob_vcom</code></td>
+</tr>
+<tr>
+<td>Board</td>
+<td>FPB reference board</td>
+</tr>
+<tr>
+<td>VCOM Routing</td>
+<td>Board-specific J-Link OB VCOM interface</td>
+</tr>
+<tr>
+<td>UART Mode</td>
+<td>Asynchronous</td>
+</tr>
+<tr>
+<td>DMA/DTC</td>
+<td>Disabled</td>
+</tr>
+<tr>
+<td>Interrupt Driven</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>Toolchain</td>
+<td>LLVM Embedded Toolchain with picolibc</td>
+</tr>
+<tr>
+<td>ByteQ</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>Heap</td>
+<td>Non-zero heap configured</td>
+</tr>
+</tbody>
+</table>
+<p>The supplied validation files represent known-good reference
+configurations and should be used as a starting point when porting to
+custom hardware.</p>
+<h3 id="add-uart-instance">Add UART Instance</h3>
+<p>Create a UART instance in the FSP Configurator.</p>
+<p>The instance name must be:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>g_uart_jlob_vcom</span></code></pre></div>
+<p>Supported UART drivers:</p>
+<table>
+<thead>
+<tr>
+<th>Device Family</th>
+<th>Driver</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RA0L1</td>
+<td>UARTA</td>
+</tr>
+<tr>
+<td>RA2E3</td>
+<td>SCI UART</td>
+</tr>
+<tr>
+<td>RA4E2</td>
+<td>SCI UART</td>
+</tr>
+<tr>
+<td>RA6E2</td>
+<td>SCI UART</td>
+</tr>
+<tr>
+<td>RA8E1</td>
+<td>SCI-B UART</td>
+</tr>
+</tbody>
+</table>
+<p>UART operation is interrupt-driven.</p>
+<hr />
+<h3 id="configure-uart-parameters">Configure UART Parameters</h3>
+<p>Recommended settings:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mode</td>
+<td>Asynchronous UART</td>
+</tr>
+<tr>
+<td>Baud Rate</td>
+<td>115200</td>
+</tr>
+<tr>
+<td>Data Bits</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Parity</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Stop Bits</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="callback-configuration">Callback Configuration</h3>
+<h4 id="preferred">Preferred</h4>
+<p>Leave the callback unset.</p>
+<p>The console driver automatically installs its callback during
+initialization.</p>
+<h4 id="alternative">Alternative</h4>
+<p>Configure:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>uart_jlob_vcom_callback</span></code></pre></div>
+<p>manually.</p>
+<hr />
+<h3 id="configure-heap-size">Configure Heap Size</h3>
+<p>The implementation allocates temporary transmit buffers using:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>malloc<span class="op">()</span></span></code></pre></div>
+<p>Configure a non-zero heap size:</p>
+<pre class="text"><code>BSP Properties
+    → Heap Size</code></pre>
+<p>Recommended:</p>
+<pre class="text"><code>1024 bytes minimum</code></pre>
+<p>Failure to configure heap memory may result in:</p>
+<ul>
+<li>Failed UART flushes</li>
+<li>Missing output</li>
+<li><code>malloc()</code> failures</li>
+</ul>
+<hr />
+<h3 id="enable-byteq">Enable ByteQ</h3>
+<p>This component depends on ByteQ.</p>
+<p>The following queues are managed internally:</p>
+<ul>
+<li>RX queue</li>
+<li>TX queue</li>
+</ul>
+<p>No explicit FSP configuration is required.</p>
+<hr />
+<h3 id="uart-configuration-validation">UART Configuration
+Validation</h3>
+<p>The UART stdio implementation contains a reusable UART configuration
+validation framework.</p>
+<p>The following files are provided:</p>
+<pre class="text"><code>rs_stdio_uart.h
+rs_stdio_uart.c
+
+configs/
+├── stdio_uart_config_ra0l1.c
+├── stdio_uart_config_ra2e3.c
+├── stdio_uart_config_ra4e2.c
+├── stdio_uart_config_ra6e2.c
+└── stdio_uart_config_ra8e1.c</code></pre>
+<p>Each board-specific source file contains:</p>
+<ul>
+<li>Validated UART reference settings</li>
+<li>Pin mapping requirements</li>
+<li>Baud configuration requirements</li>
+<li>Driver-specific validation logic</li>
+</ul>
+<p>The framework validates:</p>
+<ul>
+<li>UART driver type</li>
+<li>UART ownership relationships</li>
+<li>UART interrupt configuration</li>
+<li>UART extended configuration</li>
+<li>UART baud configuration</li>
+<li>UART pin routing</li>
+<li>DMA/DTC restrictions</li>
+</ul>
+<hr />
+<h3 id="dmadtc-restrictions">DMA/DTC Restrictions</h3>
+<p>This component supports interrupt-driven UART communication only.</p>
+<p>DMA and DTC transfer instances are not supported.</p>
+<p>The following fields must remain:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>p_transfer_tx <span class="op">=</span> NULL</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>p_transfer_rx <span class="op">=</span> NULL</span></code></pre></div>
+<p>Validation will fail if transfer instances are configured.</p>
+<hr />
+<h2 id="recommended-starting-points">Recommended Starting Points</h2>
+<h3 id="public-apis-to-review-first">Public APIs To Review First</h3>
+<p>Customers evaluating this SBB should begin with the following public
+APIs:</p>
+<h4 id="validate-configuration">Validate Configuration</h4>
+<pre><code>RS_STDIO_UART_CheckApplicationConfiguration()</code></pre>
+<p>Purpose:</p>
+<p>Verifies that the application UART configuration matches the
+validated reference configuration.</p>
+<h4 id="initialize-through-first-use">Initialize Through First Use</h4>
+<pre><code>printf(...)
+fprintf(...)
+getchar()</code></pre>
+<p>Purpose:</p>
+<p>Demonstrates how the SBB automatically initializes itself without
+explicit startup code.</p>
+<h4 id="read-console-input">Read Console Input</h4>
+<pre><code>getchar()</code></pre>
+<p>Purpose:</p>
+<p>Demonstrates blocking UART receive functionality.</p>
+<h4 id="write-console-output">Write Console Output</h4>
+<pre><code>printf(...)
+fprintf(...)</code></pre>
+<p>Purpose:</p>
+<p>Demonstrates UART-backed standard I/O output.</p>
+<h4 id="flush-output">Flush Output</h4>
+<pre><code>fflush(stdout)</code></pre>
+<p>Purpose:</p>
+<p>Forces transmission of queued output data.</p>
+<h2 id="integration-steps">Integration Steps</h2>
+<h3 id="step-1-add-uart-sources">Step 1: Add UART Sources</h3>
+<p>Add:</p>
+<pre class="text"><code>syscalls_picolib_stdio_to_uart.c
+rs_stdio_uart.c
+rs_stdio_uart.h</code></pre>
+<p>Add the configuration file corresponding to your target:</p>
+<pre class="text"><code>configs/stdio_uart_config_ra0l1.c</code></pre>
+<p>or</p>
+<pre class="text"><code>configs/stdio_uart_config_ra2e3.c</code></pre>
+<p>or</p>
+<pre class="text"><code>configs/stdio_uart_config_ra4e2.c</code></pre>
+<p>or</p>
+<pre class="text"><code>configs/stdio_uart_config_ra6e2.c</code></pre>
+<p>or</p>
+<pre class="text"><code>configs/stdio_uart_config_ra8e1.c</code></pre>
+<hr />
+<h3 id="step-2-add-byteq-sources">Step 2: Add ByteQ Sources</h3>
+<p>Include:</p>
+<pre class="text"><code>r_byteq.c
+r_byteq.h</code></pre>
+<h3 id="step-3-configure-uart-in-fsp">Step 3: Configure UART in FSP</h3>
+<p>Create a UART instance:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>g_uart_jlob_vcom</span></code></pre></div>
+<h3 id="step-4-configure-heap-size">Step 4: Configure Heap Size</h3>
+<p>Configure:</p>
+<pre class="text"><code>BSP Properties
+    → Heap Size</code></pre>
+<p>Recommended:</p>
+<pre class="text"><code>1024 bytes or larger</code></pre>
+<h3 id="step-5-configure-uart-routing">Step 5: Configure UART
+Routing</h3>
+<p>Ensure the correct VCOM routing is configured.</p>
+<p>Reference VCOM routing:</p>
+<table>
+<thead>
+<tr>
+<th>Board</th>
+<th>RXD</th>
+<th>TXD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FPB-RA0L1</td>
+<td>P105</td>
+<td>P106</td>
+</tr>
+<tr>
+<td>FPB-RA2E3</td>
+<td>P110</td>
+<td>P109</td>
+</tr>
+<tr>
+<td>FPB-RA4E2</td>
+<td>P410</td>
+<td>P411</td>
+</tr>
+<tr>
+<td>FPB-RA6E2</td>
+<td>P410</td>
+<td>P411</td>
+</tr>
+<tr>
+<td>FPB-RA8E1</td>
+<td>P101</td>
+<td>P102</td>
+</tr>
+</tbody>
+</table>
+<h3 id="step-6-build-with-picolibc">Step 6: Build with Picolibc</h3>
+<p>Build using:</p>
+<ul>
+<li>LLVM Embedded Toolchain</li>
+<li>picolibc</li>
+</ul>
+<p>The implementation will fail compilation if picolibc is not
+enabled.</p>
+<hr />
+<h3 id="step-7-validate-uart-configuration">Step 7: Validate UART
+Configuration</h3>
+<p>The project may validate the configured UART during startup.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>fsp_err_t err <span class="op">=</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    RS_STDIO_UART_CheckApplicationConfiguration<span class="op">();</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>FSP_ASSERT<span class="op">(</span>FSP_SUCCESS <span class="op">==</span> err<span class="op">);</span></span></code></pre></div>
+<p>This validates:</p>
+<ul>
+<li>UART driver type</li>
+<li>UART configuration</li>
+<li>UART pin routing</li>
+<li>Baud configuration</li>
+<li>Interrupt configuration</li>
+<li>Extended UART settings</li>
+</ul>
+<hr />
+<h3 id="step-8-no-explicit-initialization-required">Step 8: No Explicit
+Initialization Required</h3>
+<p>The UART layer initializes automatically when one of the following is
+first used:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(...)</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>fprintf<span class="op">(...)</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>getchar<span class="op">()</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>fflush<span class="op">(...)</span></span></code></pre></div>
+<p>Initialization occurs internally through:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>jlob_uart_init_once<span class="op">()</span></span></code></pre></div>
+<hr />
+<h2 id="integration-checklist">Integration Checklist</h2>
+<p>Before running your application:</p>
+<ul class="task-list">
+<li><label><input type="checkbox"></input>LLVM Embedded Toolchain is
+used.</label></li>
+<li><label><input type="checkbox"></input>picolibc is enabled.</label></li>
+<li><label><input type="checkbox"></input>syscalls_picolib_stdio_to_uart.c
+included.</label></li>
+<li><label><input type="checkbox"></input>rs_stdio_uart.c
+included.</label></li>
+<li><label><input type="checkbox"></input>rs_stdio_uart.h
+included.</label></li>
+<li><label><input type="checkbox"></input>Correct stdio_uart_config_raXYZ.c
+included.</label></li>
+<li><label><input type="checkbox"></input>r_byteq.c included.</label></li>
+<li><label><input type="checkbox"></input>r_byteq.h included.</label></li>
+<li><label><input type="checkbox"></input>UART instance g_uart_jlob_vcom
+configured.</label></li>
+<li><label><input type="checkbox"></input>UART routing matches board
+requirements.</label></li>
+<li><label><input type="checkbox"></input>UART interrupts
+enabled.</label></li>
+<li><label><input type="checkbox"></input>Heap size configured.</label></li>
+<li><label><input type="checkbox"></input>DMA/DTC not configured.</label></li>
+<li><label><input type="checkbox"></input>RS_STDIO_UART_CheckApplicationConfiguration()
+passes.</label></li>
+<li><label><input type="checkbox"></input>UART terminal
+connected.</label></li>
+</ul>
+<hr />
+<h2 id="uart-configuration-architecture">UART Configuration
+Architecture</h2>
+<pre class="text"><code>stdio_uart_config_raXYZ.c
+            │
+            ▼
+    rs_stdio_uart_ref
+            │
+            ▼
+RS_STDIO_UART_CheckConfig()
+            │
+            ▼
+RS_STDIO_UART_CheckApplicationConfiguration()
+            │
+            ▼
+        UART Console</code></pre>
+<hr />
+<h2 id="usage">Usage</h2>
+<h3 id="writing-to-console">Writing to Console</h3>
+<div class="sourceCode" id="cb35"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">&quot;Hello UART</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">&quot;Error message</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span></code></pre></div>
+<p>Output is:</p>
+<ul>
+<li>Buffered through ByteQ</li>
+<li>Automatically flushed on:
+<ul>
+<li>newline (<code>&#39;\n&#39;</code>)</li>
+<li>buffer full</li>
+<li>explicit flush</li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="reading-from-console">Reading from Console</h3>
+<div class="sourceCode" id="cb36"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> c <span class="op">=</span> getchar<span class="op">();</span></span></code></pre></div>
+<p>Behavior:</p>
+<ul>
+<li>Blocks until a character arrives</li>
+<li>Characters are sourced from the RX queue</li>
+</ul>
+<hr />
+<h3 id="flush-output-1">Flush Output</h3>
+<div class="sourceCode" id="cb37"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>fflush<span class="op">(</span>stdout<span class="op">);</span></span></code></pre></div>
+<p>Behavior:</p>
+<ul>
+<li>TX queue content transmitted</li>
+<li>UART write started</li>
+<li>Completion handled through ISR</li>
+</ul>
+<hr />
+<h2 id="data-flow-architecture">Data Flow Architecture</h2>
+<h3 id="tx-flow">TX Flow</h3>
+<pre class="text"><code>printf()
+    ↓
+uart_putc()
+    ↓
+TX ByteQ
+    ↓
+uart_flush()
+    ↓
+malloc buffer
+    ↓
+UART write()
+    ↓
+ISR → free buffer</code></pre>
+<hr />
+<h3 id="rx-flow">RX Flow</h3>
+<pre class="text"><code>UART RX ISR
+    ↓
+RX ByteQ
+    ↓
+uart_getc()
+    ↓
+getchar()</code></pre>
+<hr />
+<h2 id="callback-behavior">Callback Behavior</h2>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UART_EVENT_RX_CHAR</td>
+<td>Add character to RX queue</td>
+</tr>
+<tr>
+<td>UART_EVENT_TX_DATA_EMPTY</td>
+<td>Release TX buffer</td>
+</tr>
+<tr>
+<td>UART_EVENT_TX_COMPLETE</td>
+<td>Clear TX busy status</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="special-handling">Special Handling</h3>
+<p>Backspace support:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>R_BYTEQ_PopLast<span class="op">()</span></span></code></pre></div>
+<p>removes the most recently entered character.</p>
+<hr />
+<h2 id="configuration-parameters">Configuration Parameters</h2>
+<h3 id="buffer-sizes">Buffer Sizes</h3>
+<div class="sourceCode" id="cb41"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">uint8_t</span> rx_memory_buffer<span class="op">[</span><span class="dv">256</span><span class="op">];</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="dt">uint8_t</span> tx_memory_buffer<span class="op">[</span><span class="dv">256</span><span class="op">];</span></span></code></pre></div>
+<p>Recommended sizing:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Recommendation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RX Buffer</td>
+<td>≥ expected line length</td>
+</tr>
+<tr>
+<td>TX Buffer</td>
+<td>≥ maximum print burst</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="error-handling">Error Handling</h2>
+<h3 id="return-conventions">Return Conventions</h3>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Return</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uart_putc</td>
+<td>Character or -1</td>
+</tr>
+<tr>
+<td>uart_getc</td>
+<td>Character or -1</td>
+</tr>
+<tr>
+<td>uart_flush</td>
+<td>0 or -1</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="common-failure-conditions">Common Failure Conditions</h3>
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>putc returns -1</td>
+<td>Queue full</td>
+</tr>
+<tr>
+<td>getc returns -1</td>
+<td>UART initialization failure</td>
+</tr>
+<tr>
+<td>flush returns -1</td>
+<td>malloc failure</td>
+</tr>
+<tr>
+<td>flush returns -1</td>
+<td>UART write failure</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="limitations">Limitations</h2>
+<h3 id="blocking-rx">Blocking RX</h3>
+<p><code>getchar()</code> blocks indefinitely.</p>
+<h3 id="heap-usage">Heap Usage</h3>
+<p>The current implementation allocates TX buffers using:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>malloc<span class="op">()</span></span></code></pre></div>
+<p>during flushing.</p>
+<h3 id="no-timeout-support">No Timeout Support</h3>
+<p>Infinite waits exist for:</p>
+<ul>
+<li>RX receive</li>
+<li>TX completion</li>
+</ul>
+<h3 id="single-uart-instance">Single UART Instance</h3>
+<p>The implementation assumes exactly one UART instance:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>g_uart_jlob_vcom</span></code></pre></div>
+<p>Multiple simultaneous UART console instances are not supported.</p>
+<hr />
+<h3 id="supported-boards">Supported Boards</h3>
+<p>Validated configurations currently exist for: * FPB-RA0L1 * FPB-RA2E3
+* FPB-RA4E2 * FPB-RA6E2 * FPB-RA8E1</p>
+<hr />
+<h2 id="recommended-best-practices">Recommended Best Practices</h2>
+<h3 id="production-systems">Production Systems</h3>
+<p>Consider:</p>
+<ul>
+<li>Replacing heap allocation with static buffers</li>
+<li>Adding timeout support</li>
+<li>Adding RTOS synchronization</li>
+<li>Protecting shared state from ISR/task access</li>
+<li>Increasing buffer sizes</li>
+</ul>
+<h3 id="debug-applications">Debug Applications</h3>
+<p>The default implementation works well for:</p>
+<ul>
+<li>Debug logging</li>
+<li>CLI interaction</li>
+<li>Evaluation boards</li>
+<li>Example projects</li>
+</ul>
+<hr />
+<h2 id="source-modification-guidance">Source Modification Guidance</h2>
+<h3 id="safe-to-modify">Safe To Modify</h3>
+<p>The following files are typically customer-owned:</p>
+<pre><code>Application source files
+Board-specific UART configuration files
+Demo applications</code></pre>
+<p>Examples:</p>
+<pre><code>syscalls_picolib_stdio_to_uart_demo.c
+stdio_uart_config_my_board.c</code></pre>
+<h3 id="modify-with-care">Modify With Care</h3>
+<p>The following files contain reusable SBB implementation logic:</p>
+<pre><code>syscalls_picolib_stdio_to_uart.c
+rs_stdio_uart.c
+rs_stdio_uart.h</code></pre>
+<p>Modifications to these files may complicate future SBB upgrades.</p>
+<h3 id="generated-files">Generated Files</h3>
+<p>FSP-generated files should be treated as generated content.</p>
+<p>Examples include:</p>
+<pre><code>hal_data.c
+hal_data.h
+configuration.xml</code></pre>
+<p>Changes to generated files may be overwritten when regenerating FSP
+projects.</p>
+<hr />
+<h2 id="updating-to-a-newer-sbb-release">Updating To A Newer SBB
+Release</h2>
+<p>Customers are encouraged to keep board-specific customizations
+separate from reusable SBB source files whenever possible.</p>
+<h3 id="recommended-approach">Recommended Approach</h3>
+<h4 id="customize">Customize:</h4>
+<pre><code>Application code
+Board-specific validation files
+FSP configuration</code></pre>
+<h4 id="avoid-modifying">Avoid modifying:</h4>
+<pre><code>rs_stdio_uart.c
+rs_stdio_uart.h
+syscalls_picolib_stdio_to_uart.c</code></pre>
+<p>unless a product-specific requirement exists.</p>
+<h3 id="benefits">Benefits</h3>
+<p>Keeping modifications isolated helps:</p>
+<ul>
+<li>Simplify upgrades</li>
+<li>Reduce merge conflicts</li>
+<li>Allow newer SBB releases to be adopted more easily</li>
+<li>Preserve access to bug fixes and enhancements</li>
+<li>If Core SBB Files Were Modified</li>
+</ul>
+<p>When upgrading:</p>
+<ul>
+<li>Import the newer SBB release.</li>
+<li>Compare locally modified files against the new release.</li>
+<li>Re-apply only required changes.</li>
+<li>Re-run configuration validation.</li>
+<li>Re-test UART TX and RX operation.</li>
+</ul>
+<p>This minimizes divergence from the maintained SBB baseline.</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No output</td>
+<td>Verify UART pin routing</td>
+</tr>
+<tr>
+<td>No output</td>
+<td>Verify baud rate</td>
+</tr>
+<tr>
+<td>No output</td>
+<td>Verify terminal settings</td>
+</tr>
+<tr>
+<td>getchar() blocks forever</td>
+<td>Verify incoming UART data</td>
+</tr>
+<tr>
+<td>UART validation fails</td>
+<td>Verify board-specific config file</td>
+</tr>
+<tr>
+<td>UART validation fails</td>
+<td>Verify DMA/DTC disabled</td>
+</tr>
+<tr>
+<td>UART validation fails</td>
+<td>Verify UART interrupt configuration</td>
+</tr>
+<tr>
+<td>UART validation fails</td>
+<td>Verify UART routing matches reference board</td>
+</tr>
+<tr>
+<td>Flush failure</td>
+<td>Verify heap configuration</td>
+</tr>
+<tr>
+<td>Missing interrupts</td>
+<td>Verify IPL and IRQ settings</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</body>
+</html>

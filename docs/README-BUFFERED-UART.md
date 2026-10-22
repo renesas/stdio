@@ -683,7 +683,7 @@ Reference VCOM routing:
 | Board | RXD | TXD |
 |---------|------|------|
 | FPB-RA0L1 | P105 | P106 |
-| FPB-RA2E3 | P105 | P106 |
+| FPB-RA2E3 | P110 | P109 |
 | FPB-RA4E2 | P410 | P411 |
 | FPB-RA6E2 | P410 | P411 |
 | FPB-RA8E1 | P101 | P102 |

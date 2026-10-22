@@ -29,9 +29,10 @@ inc = include_directories(
 
   'ra_gen',
   'src',
+  'src/stdio_uart',
 
   '.',  # Debug headers etc
-  'Debug/'
+  'build/cmake.arm.debug.R7FA4E2B9'
 )
 
 # -------------------------------
@@ -79,7 +80,7 @@ link_args = [
   '-T', join_paths(script_dir, 'fsp.lld'),
 
   '-Wl,-L' + script_dir,
-  '-Wl,-L' + join_paths(meson.current_source_dir(), 'Debug'),
+  '-Wl,-L' + join_paths(meson.current_source_dir(), 'build', 'cmake.arm.debug.R7FA4E2B9'),
 
   '-Wl,-Map=' + meson.project_name() + '.map',
 ]
@@ -126,21 +127,21 @@ test_srec = custom_target(
   build_by_default: true,
 )
 
-if get_option('easydev') == true
-  run_target(
-      'build-e2studio-project',
-      command : [
-          python,
-          join_paths(
-              meson.project_source_root(),
-              'scripts',
-              'build_e2studio_project.py'
-          ),
-          mcu,
-          get_option('example'),
-      ]
-  )
-endif
+# if get_option('easydev') == true
+#   run_target(
+#       'build-e2studio-project',
+#       command : [
+#           python,
+#           join_paths(
+#               meson.project_source_root(),
+#               'scripts',
+#               'build_e2studio_project.py'
+#           ),
+#           mcu,
+#           get_option('example'),
+#       ]
+#   )
+# endif
 # ------------------------------------------------------------
 # RFP targets
 # ------------------------------------------------------------
