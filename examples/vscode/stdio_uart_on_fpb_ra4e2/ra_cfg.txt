@@ -118,7 +118,7 @@ FSP Configuration
       P015 52 GPIO PMOD2_GPIO2 - None "Input mode" - - "ADC0: AN013; IRQ: IRQ13" - IO - - 
       P100 48 I3C/IIC_I3C_SCL I3C_SCL_ARDUINO_SCL H None "Peripheral mode" - - "AGT0: AGTIO0; GPT5: GTIOC5B; GPT_POEGA: GTETRGA; I3C/IIC: I3C_SCL; IRQ: IRQ2; SCI0: RXD0; SPI1: MISO1; SSIE: AUDIO_CLK" - IO - - 
       P101 47 I3C/IIC_I3C_SDA I3C_SDA_ARDUINO_SDA H None "Peripheral mode" - - "AGT0: AGTEE0; GPT5: GTIOC5A; GPT_POEGB: GTETRGB; I3C/IIC: I3C_SDA; IRQ: IRQ1; SCI0: TXD0; SPI1: MOSI1" - IO - - 
-      P102 46 SCI0_SCK0 PMOD2_SCK H - "Peripheral mode" - - "ADC0(Digital): ADTRG0; AGT0: AGTO0; CANFD0: CRX0; GPT_OPS: GTOWLO; SCI0: SCK0; SPI1: RSPCK1; SSIE0: SSIBCK0" - IO - - 
+      P102 46 - PMOD2_SCK - - Disabled - - "ADC0(Digital): ADTRG0; AGT0: AGTO0; CANFD0: CRX0; GPT_OPS: GTOWLO; SCI0: SCK0; SPI1: RSPCK1; SSIE0: SSIBCK0" - None - - 
       P103 45 - - - - Disabled - - "CANFD0: CTX0; GPT_OPS: GTOWUP; SCI0: CTS_RTS0; SPI1: SSLB0; SSIE0: SSIFS0; SSIE0: SSILRCK0" - None - - 
       P104 44 - - - - Disabled - - "AGT1: AGTIO1; GPT1: GTIOC1B; GPT_POEGB: GTETRGB; IRQ: IRQ1; SPI1: SSLB1" - None - - 
       P105 43 GPIO ARDUINO_D2 - None "Input mode" - - "GPT1: GTIOC1A; GPT_POEGA: GTETRGA; IRQ: IRQ0; SPI1: SSLB2" - IO - - 
@@ -183,7 +183,7 @@ FSP Configuration
       P015 52 - PMOD2_GPIO2 - None Disabled - - "ADC0: AN013; IRQ: IRQ13" - IO - - 
       P100 48 - I3C_SCL_ARDUINO_SCL L None Disabled - - "AGT0: AGTIO0; GPT5: GTIOC5B; GPT_POEGA: GTETRGA; I3C/IIC: I3C_SCL; IRQ: IRQ2; SCI0: RXD0; SPI1: MISO1; SSIE: AUDIO_CLK" - IO - - 
       P101 47 - I3C_SDA_ARDUINO_SDA L None Disabled - - "AGT0: AGTEE0; GPT5: GTIOC5A; GPT_POEGB: GTETRGB; I3C/IIC: I3C_SDA; IRQ: IRQ1; SCI0: TXD0; SPI1: MOSI1" - IO - - 
-      P102 46 - PMOD2_SCK L - Disabled - - "ADC0(Digital): ADTRG0; AGT0: AGTO0; CANFD0: CRX0; GPT_OPS: GTOWLO; SCI0: SCK0; SPI1: RSPCK1; SSIE0: SSIBCK0" - IO - - 
+      P102 46 - PMOD2_SCK - - Disabled - - "ADC0(Digital): ADTRG0; AGT0: AGTO0; CANFD0: CRX0; GPT_OPS: GTOWLO; SCI0: SCK0; SPI1: RSPCK1; SSIE0: SSIBCK0" - None - - 
       P103 45 - - - - Disabled - - "CANFD0: CTX0; GPT_OPS: GTOWUP; SCI0: CTS_RTS0; SPI1: SSLB0; SSIE0: SSIFS0; SSIE0: SSILRCK0" - None - - 
       P104 44 - - - - Disabled - - "AGT1: AGTIO1; GPT1: GTIOC1B; GPT_POEGB: GTETRGB; IRQ: IRQ1; SPI1: SSLB1" - None - - 
       P105 43 - ARDUINO_D2 - None Disabled - - "GPT1: GTIOC1A; GPT_POEGA: GTETRGA; IRQ: IRQ0; SPI1: SSLB2" - IO - - 
@@ -236,6 +236,11 @@ FSP Configuration
   User Events
     
   User Event Links
+    
+  Linker Section Mappings
+    *(.bss.*_fsp_nocache): RAM Zeroed (Uncached)
+    *(.bss.g_heap): RAM Uninitialized
+    *(.bss.g_main_stack): RAM Uninitialized
     
   Module "I/O Port (r_ioport)"
     Parameter Checking: Default (BSP)

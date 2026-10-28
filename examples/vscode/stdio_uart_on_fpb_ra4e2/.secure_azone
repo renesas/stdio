@@ -18,7 +18,6 @@
         <peripheral name="PORT1.CM33" group="PORT">
             <slot name="P100.CM33" secure="true"/>
             <slot name="P101.CM33" secure="true"/>
-            <slot name="P102.CM33" secure="true"/>
             <slot name="P105.CM33" secure="true"/>
             <slot name="P106.CM33" secure="true"/>
             <slot name="P107.CM33" secure="true"/>

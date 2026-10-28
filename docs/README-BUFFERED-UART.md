@@ -963,6 +963,7 @@ Multiple simultaneous UART console instances are not supported.
 ### Supported Boards
 
 Validated configurations currently exist for:
+
 * FPB-RA0L1
 * FPB-RA2E3
 * FPB-RA4E2

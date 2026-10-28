@@ -39,6 +39,7 @@
       "debug": {
         "statusBarVisibility": "inherit"
       }
-    }
+    },
+    "clangd.path": "${config:renesas-platform.crossProbeClangdPath}"
   }
 }
