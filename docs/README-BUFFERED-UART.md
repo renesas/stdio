@@ -1,4 +1,4 @@
-# UART Console (Picolibc + FSP) – User Manual
+# STDIO over UART (Picolibc + FSP) – User Manual
 
 ## Summary
 
