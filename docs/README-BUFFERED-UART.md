@@ -1,6 +1,6 @@
-# STDIO over UART (Picolibc + FSP) – User Manual
+# UART Serial COM
 
-## Summary
+## Summary - STDIO over UART (Picolibc + FSP) – User Manual
 
 This module provides a reusable UART-based stdio implementation featuring:
 
